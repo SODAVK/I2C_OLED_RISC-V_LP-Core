@@ -177,19 +177,18 @@ uint64_t oled_lp_get_time_us(void) {
 }
 
 void oled_lp_clear_buffer(void) {
-    for (uint16_t i = 0; i < 512; i++) oled_buffer[i] = 0x00; // Было 1024
+    for (uint16_t i = 0; i < 512; i++) oled_buffer[i] = 0x00; //512, 1024, 2048 and other
     screen_is_dirty = true;
 }
 
 void oled_lp_draw_frame(void) {
-    // Рисуем границы пиксель за пикселем
     for (uint8_t i = 0; i < 128; i++) {
-        oled_lp_draw_pixel(i, 0, true);       // Верхняя линия
-        oled_lp_draw_pixel(i, 31, true);      // Нижняя линия
+        oled_lp_draw_pixel(i, 0, true);
+        oled_lp_draw_pixel(i, 31, true);
     }
     for (uint8_t i = 0; i < 32; i++) {
-        oled_lp_draw_pixel(0, i, true);       // Левая линия
-        oled_lp_draw_pixel(127, i, true);     // Правая линия
+        oled_lp_draw_pixel(0, i, true);
+        oled_lp_draw_pixel(127, i, true);
     }
     screen_is_dirty = true;
 }
@@ -277,7 +276,7 @@ void oled_lp_set_fps(uint8_t fps) {
 }
 
 void oled_lp_power_off(void) {
-    oled_send_command(0xAE); oled_send_command(0x8D); oled_send_command(0x10); // тут менял с 02 на 10
+    oled_send_command(0xAE); oled_send_command(0x8D); oled_send_command(0x10);
     ulp_lp_core_delay_us(25000); 
 }
 
